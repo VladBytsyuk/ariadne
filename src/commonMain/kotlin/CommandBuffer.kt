@@ -1,8 +1,8 @@
+import containers.IQueue
 import containers.Queue
-import containers.QueueImpl
 
 internal class CommandBuffer<Screen> {
-    private val queue: Queue<NavigationCommand<Screen>> = QueueImpl()
+    private val queue: IQueue<NavigationCommand<Screen>> = Queue()
 
 
     internal var navigator: Navigator<Screen>? = null

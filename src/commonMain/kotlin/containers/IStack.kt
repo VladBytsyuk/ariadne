@@ -1,6 +1,6 @@
 package containers
 
-interface Stack<T> {
+interface IStack<T> {
     fun isEmpty(): Boolean
     fun isNotEmpty(): Boolean
 
@@ -9,13 +9,13 @@ interface Stack<T> {
     fun peek(): T
 }
 
-internal class StackImpl<T>: Stack<T> {
+internal class AriadneStack<T>: IStack<T> {
     private val list: MutableList<T> = mutableListOf()
 
 
     override fun isEmpty() = list.isEmpty()
 
-    override fun isNotEmpty() = !list.isEmpty()
+    override fun isNotEmpty() = list.isNotEmpty()
 
 
     override fun push(item: T) = list.add(item)

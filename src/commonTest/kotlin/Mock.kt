@@ -1,5 +1,5 @@
-import containers.Stack
-import containers.StackImpl
+import containers.IStack
+import containers.AriadneStack
 
 internal data class MockScreen(val name: String)
 
@@ -10,12 +10,12 @@ internal class MockNavigator(
     val app: MockApp,
     tabs: List<Tab> = listOf(TabStub())
 ) : Navigator<MockScreen>() {
-    private val tabStacks: Map<Tab, Stack<MockScreen>> =
-        tabs.map { it to StackImpl<MockScreen>() }.toMap()
+    private val tabStacks: Map<Tab, IStack<MockScreen>> =
+        tabs.map { it to AriadneStack<MockScreen>() }.toMap()
 
     private var activeTab: Tab? = tabStacks.keys.first()
 
-    private val activeTabStack: Stack<MockScreen>
+    private val activeTabStack: IStack<MockScreen>
         get() = tabStacks[activeTab]
             ?: throw Navigator.IllegalTabException("No such tab = [$activeTab] registered in Router.")
 

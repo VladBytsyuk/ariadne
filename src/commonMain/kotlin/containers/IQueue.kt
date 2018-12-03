@@ -1,6 +1,6 @@
 package containers
 
-interface Queue<T> {
+interface IQueue<T> {
     fun isEmpty(): Boolean
     fun isNotEmpty(): Boolean
 
@@ -8,13 +8,13 @@ interface Queue<T> {
     fun poll(): T
 }
 
-internal class QueueImpl<T> : Queue<T> {
+internal class Queue<T> : IQueue<T> {
     private val list: MutableList<T> = mutableListOf()
 
 
     override fun isEmpty() = list.isEmpty()
 
-    override fun isNotEmpty() = !list.isEmpty()
+    override fun isNotEmpty() = list.isNotEmpty()
 
 
     override fun add(item: T) = list.add(item)

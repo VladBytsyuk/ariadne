@@ -1,5 +1,5 @@
-import containers.Stack
-import containers.StackImpl
+import containers.IStack
+import containers.AriadneStack
 
 
 public abstract class Navigator<in Screen>(
@@ -9,11 +9,11 @@ public abstract class Navigator<in Screen>(
      * Private tab fields
      * =================================================================================================================
      */
-    private val tabStacks: Map<Tab, Stack<Screen>> = tabs.map { it to StackImpl<Screen>() }.toMap()
+    private val tabStacks: Map<Tab, IStack<Screen>> = tabs.map { it to AriadneStack<Screen>() }.toMap()
 
     private var activeTab: Tab? = tabStacks.keys.first()
 
-    private val activeTabStack: Stack<Screen>
+    private val activeTabStack: IStack<Screen>
         get() = tabStacks[activeTab] ?: throw IllegalTabException("No such tab = [$activeTab] registered in Router.")
 
     private val activeScreen: Screen? get() = if (activeTabStack.isNotEmpty()) activeTabStack.peek() else null
