@@ -1,4 +1,5 @@
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class NavigatorTest {
     @Test
@@ -7,10 +8,10 @@ class NavigatorTest {
         val screenA = MockScreen("A")
 
         app.router.navigateTo(screenA)
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
         
         app.router.back()
-        assert(app.currentScreen == null)
+        assertEquals(actual = app.currentScreen, expected = null)
     }
 
     @Test
@@ -21,13 +22,13 @@ class NavigatorTest {
 
         app.router.navigateTo(screenA)
         app.router.navigateTo(screenB)
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
 
         app.router.back()
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
         
         app.router.back()
-        assert(app.currentScreen == null)
+        assertEquals(actual = app.currentScreen, expected = null)
     }
 
     @Test
@@ -39,19 +40,19 @@ class NavigatorTest {
 
         app.router.navigateTo(screenA)
         app.router.navigateTo(screenB)
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
 
         app.router.back()
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigateTo(screenC)
-        assert(app.currentScreen == screenC)
+        assertEquals(actual = app.currentScreen, expected = screenC)
 
         app.router.back()
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.back()
-        assert(app.currentScreen == null)
+        assertEquals(actual = app.currentScreen, expected = null)
     }
 
 
@@ -63,10 +64,10 @@ class NavigatorTest {
 
         app.router.navigator = null
         app.router.navigateTo(screenA)
-        assert(app.currentScreen == null)
+        assertEquals(actual = app.currentScreen, expected = null)
 
         app.router.navigator = navigator
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
     }
 
     @Test
@@ -79,12 +80,11 @@ class NavigatorTest {
         app.router.navigator = null
         app.router.navigateTo(screenA)
         app.router.navigateTo(screenB)
-        assert(app.currentScreen == null)
+        assertEquals(actual = app.currentScreen, expected = null)
 
         app.router.navigator = navigator
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
     }
-
 
     @Test
     fun testRemoveAddNavigatorDuringNavigationWithTwoFragments() {
@@ -94,16 +94,16 @@ class NavigatorTest {
         val screenB = MockScreen("B")
 
         app.router.navigateTo(screenA)
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigator = null
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigateTo(screenB)
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigator = navigator
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
     }
 
     @Test
@@ -115,30 +115,29 @@ class NavigatorTest {
         val screenC = MockScreen("C")
 
         app.router.navigateTo(screenA)
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigator = null
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigateTo(screenB)
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigator = navigator
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
 
         app.router.back()
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigator = null
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigator = navigator
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigateTo(screenC)
-        assert(app.currentScreen == screenC)
+        assertEquals(actual = app.currentScreen, expected = screenC)
     }
-
 
     @Test
     fun testRemoveAddNavigatorAfterNavigationWithTwoFragments() {
@@ -148,18 +147,40 @@ class NavigatorTest {
         val screenB = MockScreen("B")
 
         app.router.navigateTo(screenA)
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.navigateTo(screenB)
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
 
         app.router.navigator = null
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
 
         app.router.back()
-        assert(app.currentScreen == screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
 
         app.router.navigator = navigator
-        assert(app.currentScreen == screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
+    }
+
+
+    @Test
+    fun testChangeTab() {
+        val app = MockApp(isMultipleTabs = true)
+        val screenA = MockScreen("A")
+        val screenB = MockScreen("B")
+        val screenC = MockScreen("C")
+
+        app.router.navigateTo(screenA)
+        assertEquals(actual = app.currentScreen, expected = screenA)
+
+        app.router.navigateTo(screenB)
+        assertEquals(actual = app.currentScreen, expected = screenB)
+
+        app.router.changeTab(MockTab.Second)
+        app.router.navigateTo(screenC)
+        assertEquals(actual = app.currentScreen, expected = screenC)
+
+        app.router.changeTab(MockTab.First)
+        assertEquals(actual = app.currentScreen, expected = screenB)
     }
 }

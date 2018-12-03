@@ -1,8 +1,9 @@
-import java.util.*
-
+import containers.Queue
+import containers.QueueImpl
 
 internal class CommandBuffer<Screen> {
-    private val queue: Queue<NavigationCommand<Screen>> = ArrayDeque()
+    private val queue: Queue<NavigationCommand<Screen>> = QueueImpl()
+
 
     internal var navigator: Navigator<Screen>? = null
         internal set(new) {
@@ -11,6 +12,7 @@ internal class CommandBuffer<Screen> {
                 while (queue.isNotEmpty()) navigator.apply(queue.poll())
             }
         }
+
 
     internal fun execute(command: NavigationCommand<Screen>) {
         val lockedNavigator: Navigator<Screen>? = navigator
