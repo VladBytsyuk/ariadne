@@ -1,6 +1,6 @@
 package containers
 
-interface IStack<T> {
+interface Stack<T> {
     fun isEmpty(): Boolean
     fun isNotEmpty(): Boolean
 
@@ -9,7 +9,7 @@ interface IStack<T> {
     fun peek(): T
 }
 
-internal class AriadneStack<T>: IStack<T> {
+internal class AriadneStack<T>: Stack<T> {
     private val list: MutableList<T> = mutableListOf()
 
 

@@ -1,39 +1,42 @@
-import containers.IStack
+import containers.Stack
 import containers.AriadneStack
 
 
-public abstract class Navigator<in Screen>(
+abstract class Navigator<Screen>(
     tabs: List<Tab> = listOf(TabStub())
 ) {
     /* =================================================================================================================
-     * Private tab fields
+     * Tab fields
      * =================================================================================================================
      */
-    private val tabStacks: Map<Tab, IStack<Screen>> = tabs.map { it to AriadneStack<Screen>() }.toMap()
+
+    internal class TabStub : Tab
+
+    private val tabStacks: Map<Tab, Stack<Screen>> = tabs.map { it to AriadneStack<Screen>() }.toMap()
 
     private var activeTab: Tab? = tabStacks.keys.first()
 
-    private val activeTabStack: IStack<Screen>
+    private val activeTabStack: Stack<Screen>
         get() = tabStacks[activeTab] ?: throw IllegalTabException("No such tab = [$activeTab] registered in Router.")
 
-    private val activeScreen: Screen? get() = if (activeTabStack.isNotEmpty()) activeTabStack.peek() else null
-
+    val activeScreen: Screen? get() = if (activeTabStack.isNotEmpty()) activeTabStack.peek() else null
 
 
     /* =================================================================================================================
      * Abstract methods
      * =================================================================================================================
      */
-    public abstract fun apply(command: NavigationCommand<Screen>)
+
+    abstract fun apply(command: NavigationCommand<Screen>)
 
 
     /* =================================================================================================================
-     * Exception
+     * Exceptions
      * =================================================================================================================
      */
-    class UnsupportedCommandException(message: String) : Throwable(message)
 
-    class IllegalTabException(message: String) : Throwable(message)
-    class WrongUsageException(message: String) : Throwable(message)
+    class UnsupportedCommandException(message: String) : UnsupportedOperationException(message)
+
+    class IllegalTabException(message: String) : IllegalArgumentException(message)
 }
 

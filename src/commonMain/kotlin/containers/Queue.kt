@@ -1,6 +1,6 @@
 package containers
 
-interface IQueue<T> {
+interface Queue<T> {
     fun isEmpty(): Boolean
     fun isNotEmpty(): Boolean
 
@@ -8,7 +8,7 @@ interface IQueue<T> {
     fun poll(): T
 }
 
-internal class Queue<T> : IQueue<T> {
+internal class AriadneQueue<T> : Queue<T> {
     private val list: MutableList<T> = mutableListOf()
 
 

@@ -1,4 +1,4 @@
-public open class NavigationCommand<out Screen>(
+open class NavigationCommand<out Screen>(
     val tab: Tab? = null,
     val destination: Screen? = null,
     val data: String? = null
@@ -8,7 +8,7 @@ public open class NavigationCommand<out Screen>(
 /**
  * Direct transition to [destination] screen with [data]
  */
-public final class ForwardCommand<out Screen>(
+class ForwardCommand<out Screen>(
     destination: Screen,
     data: String? = null
 ) : NavigationCommand<Screen>(
@@ -20,12 +20,12 @@ public final class ForwardCommand<out Screen>(
 /**
  * Return to previous screen
  */
-public final class BackCommand<out Screen> : NavigationCommand<Screen>()
+class BackCommand<out Screen> : NavigationCommand<Screen>()
 
 
 /**
  * Change tab with screens to [tab]
  */
-public final class ChangeTabCommand<out Screen>(
+class ChangeTabCommand<out Screen>(
     tab: Tab
 ) : NavigationCommand<Screen>(tab = tab)

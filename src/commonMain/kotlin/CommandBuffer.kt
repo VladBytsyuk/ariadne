@@ -1,8 +1,8 @@
-import containers.IQueue
 import containers.Queue
+import containers.AriadneQueue
 
 internal class CommandBuffer<Screen> {
-    private val queue: IQueue<NavigationCommand<Screen>> = Queue()
+    private val queue: Queue<NavigationCommand<Screen>> = AriadneQueue()
 
 
     internal var navigator: Navigator<Screen>? = null
