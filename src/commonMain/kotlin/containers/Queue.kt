@@ -1,6 +1,8 @@
 package containers
 
 interface Queue<T> {
+    val size: Int
+
     fun isEmpty(): Boolean
     fun isNotEmpty(): Boolean
 
@@ -10,6 +12,9 @@ interface Queue<T> {
 
 internal class AriadneQueue<T> : Queue<T> {
     private val list: MutableList<T> = mutableListOf()
+
+
+    override val size: Int get() = list.size
 
 
     override fun isEmpty() = list.isEmpty()

@@ -14,9 +14,9 @@ abstract class Navigator<Screen>(
 
     private val tabStacks: Map<Tab, Stack<Screen>> = tabs.map { it to AriadneStack<Screen>() }.toMap()
 
-    private var activeTab: Tab? = tabStacks.keys.first()
+    var activeTab: Tab? = tabStacks.keys.first()
 
-    private val activeTabStack: Stack<Screen>
+    val activeTabStack: Stack<Screen>
         get() = tabStacks[activeTab] ?: throw IllegalTabException("No such tab = [$activeTab] registered in Router.")
 
     val activeScreen: Screen? get() = if (activeTabStack.isNotEmpty()) activeTabStack.peek() else null

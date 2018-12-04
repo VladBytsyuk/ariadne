@@ -1,6 +1,8 @@
 package containers
 
 interface Stack<T> {
+    val size: Int
+
     fun isEmpty(): Boolean
     fun isNotEmpty(): Boolean
 
@@ -11,6 +13,9 @@ interface Stack<T> {
 
 internal class AriadneStack<T>: Stack<T> {
     private val list: MutableList<T> = mutableListOf()
+
+
+    override val size: Int get() = list.size
 
 
     override fun isEmpty() = list.isEmpty()
