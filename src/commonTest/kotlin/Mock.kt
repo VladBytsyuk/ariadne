@@ -6,7 +6,7 @@ internal enum class MockTab : Tab { First, Second }
 internal class MockNavigator(
     val app: MockApp,
     tabs: List<Tab> = listOf(TabStub())
-) : Navigator<MockScreen>() {
+) : Navigator<MockScreen>(tabs) {
     override fun apply(command: NavigationCommand<MockScreen>) {
         when (command) {
             is ForwardCommand -> activeTabStack.push(command.destination as MockScreen)
