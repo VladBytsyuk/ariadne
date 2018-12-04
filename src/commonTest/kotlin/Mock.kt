@@ -23,8 +23,9 @@ internal class MockApp(isMultipleTabs: Boolean = false) {
     val router: Router<MockScreen> = Router()
 
     init {
+        val tabsList = MockTab.values().toList()
         val navigator = if (isMultipleTabs)
-            MockNavigator(app = this, tabs = MockTab.values().toList())
+            MockNavigator(app = this, tabs = tabsList)
         else
             MockNavigator(app = this)
         router.navigator = navigator
