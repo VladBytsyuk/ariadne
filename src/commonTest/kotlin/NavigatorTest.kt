@@ -11,7 +11,7 @@ class NavigatorTest {
         assertEquals(actual = app.currentScreen, expected = screenA)
         
         app.router.back()
-        assertEquals(actual = app.currentScreen, expected = null)
+        assertEquals(actual = app.currentScreen!!.name, expected = "Root")
     }
 
     @Test
@@ -28,7 +28,7 @@ class NavigatorTest {
         assertEquals(actual = app.currentScreen, expected = screenA)
         
         app.router.back()
-        assertEquals(actual = app.currentScreen, expected = null)
+        assertEquals(actual = app.currentScreen!!.name, expected = "Root")
     }
 
     @Test
@@ -36,7 +36,7 @@ class NavigatorTest {
         val app = MockApp()
         val screenA = MockScreen("A")
         val screenB = MockScreen("B")
-        val screenC = MockScreen("B")
+        val screenC = MockScreen("C")
 
         app.router.navigateTo(screenA)
         app.router.navigateTo(screenB)
@@ -52,7 +52,7 @@ class NavigatorTest {
         assertEquals(actual = app.currentScreen, expected = screenA)
 
         app.router.back()
-        assertEquals(actual = app.currentScreen, expected = null)
+        assertEquals(actual = app.currentScreen!!.name, expected = "Root")
     }
 
 
