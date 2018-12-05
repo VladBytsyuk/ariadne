@@ -8,12 +8,6 @@ internal class MockNavigator(
     tabsToRoot: Map<Tab, MockScreen> = mapOf(TabStub() to MockScreen("Root"))
 ) : Navigator<MockScreen>(tabsToRoot) {
     override fun apply(command: NavigationCommand<MockScreen>) {
-        when (command) {
-            is ForwardCommand -> activeTabStack.push(command.destination as MockScreen)
-            is BackCommand -> activeTabStack.pop()
-            is ChangeTabCommand -> activeTab = command.tab
-            else -> throw Navigator.UnsupportedCommandException("No such command")
-        }
         app.currentScreen = activeScreen
     }
 }
